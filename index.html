@@ -112,19 +112,16 @@
     footer {background:#333; color:white; text-align:center; padding:30px; margin-top: 50px;}
 
     /* SLIDER */
-/* SLIDER - FLEXIBILNÁ VÝŠKA (MOŽNOSŤ B) */
-    .slider {
+     /*.slider {
         position: relative; 
         max-width: 100%; 
         overflow: hidden; 
         background: #000;
-        /* VÝŠKA JE AUTO - prispôsobí sa obsahu */
         height: auto; 
     }
 
     .slides {
         display: flex; 
-        /* Výška sa prispôsobí najvyššiemu obrázku */
         height: auto;
         transition: transform 0.5s ease-in-out;
         align-items: flex-start;
@@ -132,10 +129,40 @@
 
     .slides img {
         width: 100%; 
-        /* KĽÚČOVÁ ZMENA: Výška nie je fixná */
         height: auto; 
-        /* Zobrazí celý obrázok bez orezania */
         object-fit: contain; 
+        flex: 0 0 100%;
+        display: block;
+    } */
+    /* SLIDER - ZÚŽENÝ S VERTIKÁLNYM CENTROVANÍM */
+    .slider {
+        position: relative; 
+        max-width: 100%; 
+        overflow: hidden; 
+        background: #000;
+        /* Tu nastavuješ, aký úzky má byť slider na veľkej obrazovke */
+        height: 350px; 
+    }
+
+    /* Na mobiloch môžeme nechať slider trochu vyšší alebo automatický, aby kniha vynikla */
+    @media (max-width: 768px) {
+        .slider {
+            height: 300px; 
+        }
+    }
+
+    .slides {
+        display: flex; 
+        height: 100%; /* Vyplní nastavenú výšku slidera */
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+        width: 100%; 
+        height: 100%; 
+        /* KĽÚČOVÉ: object-fit vyplní plochu a object-position vycentruje orezanie */
+        object-fit: cover; 
+        object-position: center center; 
         flex: 0 0 100%;
         display: block;
     }
