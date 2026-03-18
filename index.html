@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomológia Bielych Karpát I.</title>
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; line-height:1.6;}
+    header {background:#2c5f2d; color:white; padding:40px 20px; text-align:center;}
+    nav {background:#eee; padding:10px; text-align:center;}
+    nav a {margin:0 10px; text-decoration:none; color:#333; font-weight:bold;}
+    section {padding:40px 20px; max-width:900px; margin:auto;}
+    h2 {color:#2c5f2d;}
+    .reviews {background:#f9f9f9; padding:20px; border-left:4px solid #2c5f2d; margin-bottom:20px;}
+    form input, form textarea {width:100%; padding:10px; margin-bottom:10px;}
+    form button {background:#2c5f2d; color:white; padding:10px 20px; border:none; cursor:pointer;}
+    footer {background:#333; color:white; text-align:center; padding:20px;}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Pomológia Bielych Karpát I.</h1>
+  <p>Prvá kniha venovaná hruškám</p>
+</header>
+
+<nav>
+  <a href="#about">O autorovi</a>
+  <a href="#book">O knihe</a>
+  <a href="#reviews">Recenzie</a>
+  <a href="#order">Objednávka</a>
+  <a href="#contact">Kontakt</a>
+</nav>
+
+<section id="about">
+  <h2>O autorovi</h2>
+  <p>Sem doplň informácie o autorovi knihy. Napríklad jeho skúsenosti, práca a vzťah k ovocinárstvu.</p>
+</section>
+
+<section id="book">
+  <h2>O knihe</h2>
+  <p>Kniha Pomológia Bielych Karpát I. sa venuje tradičným odrodám hrušiek, ich popisu, pestovaniu a významu v regióne.</p>
+</section>
+
+<section id="reviews">
+  <h2>Recenzie</h2>
+  <div class="reviews">
+    <p>„Výborná publikácia pre každého milovníka ovocia.“</p>
+    <strong>- Meno recenzenta</strong>
+  </div>
+  <div class="reviews">
+    <p>„Unikátne spracovanie tradičných odrôd.“</p>
+    <strong>- Meno recenzenta</strong>
+  </div>
+</section>
+
+<section id="order">
+  <h2>Objednávka</h2>
+  <form action="https://formspree.io/f/your-id" method="POST">
+    <input type="text" name="name" placeholder="Meno" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Adresa a poznámka" required></textarea>
+    <button type="submit">Odoslať objednávku</button>
+  </form>
+  <p><small>Poznámka: Použi službu Formspree alebo EmailJS na odosielanie formulára.</small></p>
+</section>
+
+<section id="contact">
+  <h2>Kontakt</h2>
+  <p>Email: tvoj@email.sk</p>
+  <p>Telefón: +421 XXX XXX XXX</p>
+</section>
+
+<footer>
+  <p>&copy; 2026 Pomológia Bielych Karpát</p>
+</footer>
+
+</body>
+</html>
