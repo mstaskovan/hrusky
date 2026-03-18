@@ -112,32 +112,72 @@
     footer {background:#333; color:white; text-align:center; padding:30px; margin-top: 50px;}
 
     /* SLIDER */
-/* SLIDER - ÚPRAVA PRE POMER 16:9 */
+/* SLIDER - KOMPAKTNÁ VÝŠKA A CENTROVANIE */
     .slider {
-        position: relative;
-        max-width: 100%;
-        overflow: hidden;
+        position: relative; 
+        max-width: 100%; 
+        overflow: hidden; 
         background: #000;
-        /* Výška sa teraz neurčuje tu, ale prispôsobí sa obrázku */
+        height: 400px; /* Tu si nastav výšku, ktorá ti vyhovovala (napr. 400px až 500px) */
     }
 
     .slides {
-        display: flex;
+        display: flex; 
+        height: 100%;
         transition: transform 0.5s ease-in-out;
-        align-items: flex-start; /* Zarovnanie na horný okraj */
     }
 
     .slides img {
-        width: 100%;
-        height: auto;           /* KĽÚČOVÉ: Výška sa vypočíta automaticky */
-        aspect-ratio: 16 / 9;   /* Vynúti pomer strán 16:9 */
-        object-fit: cover;      /* Ak fotka nie je presne 16:9, jemne oreže vrch/spodok, ale zachová šírku */
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; /* Oreže vrch/spodok, ale zachová šírku */
+        object-position: center; /* KĽÚČOVÉ: Vycentruje knihu v zábere */
         flex: 0 0 100%;
         opacity: 0.9;
-        
-        /* Zrušenie pôvodných limitov, ktoré spôsobovali orezávanie */
-        min-height: 0; 
-        max-height: none; 
+    }
+
+    /* ŠÍPKY */
+    .prev, .next {
+        position: absolute; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        background: rgba(0,0,0,0.3); 
+        color: white; 
+        border: none; 
+        padding: 15px; 
+        cursor: pointer; 
+        font-size: 24px; 
+        border-radius: 50%; 
+        z-index: 10;
+        transition: background 0.3s;
+    }
+    .prev:hover, .next:hover { background: rgba(0,0,0,0.7); }
+    .prev { left: 15px; }
+    .next { right: 15px; }
+
+    /* BODKY (INDIKÁTORY) */
+    .dots-container {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .dot.active {
+        background: white;
+        transform: scale(1.2);
     }
     
     /* .slider {position:relative; max-width:100%; overflow:hidden; background: #000;}
@@ -281,8 +321,15 @@
     <img src="img/img002.jpg" alt="Hruška 2">
     <img src="img/img003.jpg" alt="Hruška 3">
   </div>
+  
   <button class="prev" onclick="moveSlide(-1)">❮</button>
   <button class="next" onclick="moveSlide(1)">❯</button>
+
+  <div class="dots-container" id="dotsContainer">
+    <span class="dot active" onclick="currentSlide(0)"></span>
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+  </div>
 </div>
 
 <div class="nav-wrap">
