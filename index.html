@@ -12,9 +12,18 @@
     section {padding:40px 20px; max-width:900px; margin:auto;}
     h2 {color:#2c5f2d;}
     .reviews {background:#f9f9f9; padding:20px; border-left:4px solid #2c5f2d; margin-bottom:20px;}
-    form input, form textarea {width:100%; padding:10px; margin-bottom:10px;}
-    form button {background:#2c5f2d; color:white; padding:10px 20px; border:none; cursor:pointer;}
     footer {background:#333; color:white; text-align:center; padding:20px;}
+
+    /* Slider */
+    .slider {position:relative; max-width:100%; overflow:hidden;}
+    .slides {display:flex; transition:transform 0.5s ease-in-out;}
+    .slides img {width:100%; height:400px; object-fit:cover;}
+    .prev, .next {
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(0,0,0,0.5); color:white; border:none; padding:10px; cursor:pointer;
+    }
+    .prev {left:10px;}
+    .next {right:10px;}
   </style>
 </head>
 <body>
@@ -23,6 +32,17 @@
   <h1>Pomológia Bielych Karpát I.</h1>
   <p>Prvá kniha venovaná hruškám</p>
 </header>
+
+<!-- Slider -->
+<div class="slider">
+  <div class="slides" id="slides">
+    <img src="https://via.placeholder.com/1200x400?text=Foto+1">
+    <img src="https://via.placeholder.com/1200x400?text=Foto+2">
+    <img src="https://via.placeholder.com/1200x400?text=Foto+3">
+  </div>
+  <button class="prev" onclick="moveSlide(-1)">❮</button>
+  <button class="next" onclick="moveSlide(1)">❯</button>
+</div>
 
 <nav>
   <a href="#about">O autorovi</a>
@@ -34,12 +54,12 @@
 
 <section id="about">
   <h2>O autorovi</h2>
-  <p>Sem doplň informácie o autorovi knihy. Napríklad jeho skúsenosti, práca a vzťah k ovocinárstvu.</p>
+  <p>Sem doplň informácie o autorovi knihy.</p>
 </section>
 
 <section id="book">
   <h2>O knihe</h2>
-  <p>Kniha Pomológia Bielych Karpát I. sa venuje tradičným odrodám hrušiek, ich popisu, pestovaniu a významu v regióne.</p>
+  <p>Kniha Pomológia Bielych Karpát I. sa venuje tradičným odrodám hrušiek.</p>
 </section>
 
 <section id="reviews">
@@ -48,32 +68,35 @@
     <p>„Výborná publikácia pre každého milovníka ovocia.“</p>
     <strong>- Meno recenzenta</strong>
   </div>
-  <div class="reviews">
-    <p>„Unikátne spracovanie tradičných odrôd.“</p>
-    <strong>- Meno recenzenta</strong>
-  </div>
 </section>
 
 <section id="order">
   <h2>Objednávka</h2>
-  <form action="https://formspree.io/f/your-id" method="POST">
-    <input type="text" name="name" placeholder="Meno" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <textarea name="message" placeholder="Adresa a poznámka" required></textarea>
-    <button type="submit">Odoslať objednávku</button>
-  </form>
-  <p><small>Poznámka: Použi službu Formspree alebo EmailJS na odosielanie formulára.</small></p>
+
+  <!-- Google Form embed -->
+  <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Načítava sa…</iframe>
+
+  <p><small>Formulár je napojený priamo na Google Forms.</small></p>
 </section>
 
 <section id="contact">
   <h2>Kontakt</h2>
   <p>Email: tvoj@email.sk</p>
-  <p>Telefón: +421 XXX XXX XXX</p>
 </section>
 
 <footer>
   <p>&copy; 2026 Pomológia Bielych Karpát</p>
 </footer>
+
+<script>
+  let index = 0;
+  function moveSlide(step) {
+    const slides = document.getElementById('slides');
+    const total = slides.children.length;
+    index = (index + step + total) % total;
+    slides.style.transform = 'translateX(' + (-index * 100) + '%)';
+  }
+</script>
 
 </body>
 </html>
