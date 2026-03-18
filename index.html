@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pomológia Bielych Karpát I.</title>
+
   <style>
     body {font-family: Arial, sans-serif; margin:0; line-height:1.6;}
     header {background:#2c5f2d; color:white; padding:40px 20px; text-align:center;}
@@ -14,18 +15,46 @@
     .reviews {background:#f9f9f9; padding:20px; border-left:4px solid #2c5f2d; margin-bottom:20px;}
     footer {background:#333; color:white; text-align:center; padding:20px;}
 
-    /* Slider */
-    .slider {position:relative; max-width:100%; overflow:hidden;}
-    .slides {display:flex; transition:transform 0.5s ease-in-out;}
-    .slides img {width:100%; height:400px; object-fit:cover;}
-    .prev, .next {
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(0,0,0,0.5); color:white; border:none; padding:10px; cursor:pointer;
+    /* SLIDER */
+    .slider {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
     }
-    .prev {left:10px;}
-    .next {right:10px;}
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      flex: 0 0 100%; /* 🔥 FIX: 1 obrázok = 1 slide */
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .prev {left: 10px;}
+    .next {right: 10px;}
+
+    .prev:hover, .next:hover {
+      background: rgba(0,0,0,0.8);
+    }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -33,8 +62,8 @@
   <p>Prvá kniha venovaná hruškám</p>
 </header>
 
-<!-- Slider -->
-<div class="slider">
+<!-- SLIDER -->
+<div class="slider" id="slider">
   <div class="slides" id="slides">
     <img src="img/img001.jpg" alt="Hruška 1">
     <img src="img/img002.jpg" alt="Hruška 2">
@@ -73,10 +102,9 @@
 <section id="order">
   <h2>Objednávka</h2>
 
-  <!-- Google Form embed -->
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?usp=preview" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Načítava sa…</iframe>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?embedded=true"
+    width="100%" height="600" frameborder="0">Načítava sa…</iframe>
 
-  <p><small>Formulár je napojený priamo na Google Forms.</small></p>
 </section>
 
 <section id="contact">
@@ -90,12 +118,31 @@
 
 <script>
   let index = 0;
+  const slides = document.getElementById('slides');
+  const total = slides.children.length;
+
   function moveSlide(step) {
-    const slides = document.getElementById('slides');
-    const total = slides.children.length;
     index = (index + step + total) % total;
     slides.style.transform = 'translateX(' + (-index * 100) + '%)';
   }
+
+  // 🔥 AUTOMATICKÝ SLIDER
+  let autoSlide = setInterval(() => {
+    moveSlide(1);
+  }, 4000);
+
+  // 🖱️ STOP pri hover
+  const slider = document.getElementById('slider');
+
+  slider.addEventListener('mouseenter', () => {
+    clearInterval(autoSlide);
+  });
+
+  slider.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => {
+      moveSlide(1);
+    }, 4000);
+  });
 </script>
 
 </body>
