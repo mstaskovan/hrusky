@@ -127,14 +127,13 @@
         transition: transform 0.5s ease-in-out;
     }
 
-    .slides img {
-        width: 100%; 
-        height: 100%; 
-        object-fit: cover; /* Oreže vrch/spodok, ale zachová šírku */
-        object-position: center; /* KĽÚČOVÉ: Vycentruje knihu v zábere */
-        flex: 0 0 100%;
-        opacity: 0.9;
-    }
+   .slides img {
+    width: 100%;
+    height: 400px; /* Musí sa zhodovať s výškou .slider */
+    object-fit: cover; 
+    object-position: center 25%; /* Toto posunie obrázok trochu vyššie, ak je kniha v dolnej časti fotky */
+    flex: 0 0 100%;
+}
 
     /* ŠÍPKY */
     .prev, .next {
@@ -433,26 +432,41 @@
   
   // SLIDER
   let index = 0;
-  const slides = document.getElementById('slides');
-  const dots = document.querySelectorAll('.dot');
-  const total = slides.children.length;
+const slides = document.getElementById('slides');
+const dots = document.querySelectorAll('.dot');
+const total = slides.children.length;
 
-  function updateSlider() {
-    slides.style.transform = 'translateX(' + (-index * 100) + '%)';
-    // Aktualizácia bodiek
+function updateSlider() {
+    // Posun obrázkov
+    slides.style.transform = `translateX(${-index * 100}%)`;
+    
+    // Reset všetkých bodiek a nastavenie aktívnej
     dots.forEach(dot => dot.classList.remove('active'));
-    dots[index].classList.add('active');
-  }
+    if (dots[index]) {
+        dots[index].classList.add('active');
+    }
+}
 
-  function moveSlide(step) {
+function moveSlide(step) {
     index = (index + step + total) % total;
     updateSlider();
-  }
+}
 
-  function currentSlide(n) {
+function currentSlide(n) {
     index = n;
     updateSlider();
-  }
+}
+
+// Oprava automatického posunu tak, aby aktualizoval aj bodky
+let autoSlide = setInterval(() => moveSlide(1), 5000);
+
+// Zastavenie automatu, ak užívateľ klikne na šípku (dobrý UX zvyk)
+document.querySelectorAll('.prev, .next, .dot').forEach(el => {
+    el.addEventListener('click', () => {
+        clearInterval(autoSlide);
+        autoSlide = setInterval(() => moveSlide(1), 5000);
+    });
+});
 
   // Automatické prepínanie (voliteľné)
   setInterval(() => moveSlide(1), 6000);
