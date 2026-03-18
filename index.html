@@ -112,29 +112,33 @@
     footer {background:#333; color:white; text-align:center; padding:30px; margin-top: 50px;}
 
     /* SLIDER */
-/* SLIDER - KOMPAKTNÁ VÝŠKA A CENTROVANIE */
+/* SLIDER - FLEXIBILNÁ VÝŠKA (MOŽNOSŤ B) */
     .slider {
         position: relative; 
         max-width: 100%; 
         overflow: hidden; 
         background: #000;
-        height: 400px; /* Tu si nastav výšku, ktorá ti vyhovovala (napr. 400px až 500px) */
+        /* VÝŠKA JE AUTO - prispôsobí sa obsahu */
+        height: auto; 
     }
 
     .slides {
         display: flex; 
-        height: 100%;
+        /* Výška sa prispôsobí najvyššiemu obrázku */
+        height: auto;
         transition: transform 0.5s ease-in-out;
+        align-items: flex-start;
     }
 
-   .slides img {
-    width: 100%;
-    height: 400px; /* Musí sa zhodovať s výškou .slider */
-    object-fit: cover; 
-    object-position: center 25%; /* Toto posunie obrázok trochu vyššie, ak je kniha v dolnej časti fotky */
-    flex: 0 0 100%;
-}
-
+    .slides img {
+        width: 100%; 
+        /* KĽÚČOVÁ ZMENA: Výška nie je fixná */
+        height: auto; 
+        /* Zobrazí celý obrázok bez orezania */
+        object-fit: contain; 
+        flex: 0 0 100%;
+        display: block;
+    }
     /* ŠÍPKY */
     .prev, .next {
         position: absolute; 
