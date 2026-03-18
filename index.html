@@ -8,62 +8,101 @@
   <style>
     /* RESET + BASE (mobile-first) */
     * {box-sizing: border-box;}
-    body {font-family: Arial, sans-serif; margin:0; line-height:1.6;}
+    body {font-family: Arial, sans-serif; margin:0; line-height:1.6; color: #333;}
     img {max-width:100%; display:block;}
 
     header {background:#2c5f2d; color:white; padding:30px 15px; text-align:center;}
     header h1 {font-size:24px; margin:0 0 10px;}
 
     /* STICKY NAV */
-    .nav-wrap {position:sticky; top:0; z-index:1000;}
-    nav {background:#eee; padding:10px 15px; display:flex; align-items:center; justify-content:space-between;}
+    .nav-wrap {position:sticky; top:0; z-index:1000; background:#eee; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+    
+    nav {
+        padding: 10px 20px;
+        display: flex;
+        flex-wrap: wrap; 
+        align-items: center;
+        justify-content: flex-end; /* Tlačí hamburger doprava */
+    }
 
-    .brand {font-weight:bold;}
+    /* HAMBURGER TLAČIDLO */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-size: 30px;
+        color: #2c5f2d;
+        line-height: 1;
+        padding: 5px;
+    }
 
-    /* HAMBURGER */
-    .hamburger {display:block; cursor:pointer; border:none; background:none; font-size:24px;}
-    .menu {display:none; width:100%;}
-    .menu a {display:block; padding:10px 0; text-decoration:none; color:#333; font-weight:bold;}
-    .menu.open {display:block;}
+    /* MENU MOBIL */
+    .menu {
+        display: none;
+        width: 100%; 
+        flex-direction: column;
+        gap: 0;
+        margin-top: 10px;
+    }
 
-    section {padding:30px 15px; max-width:1000px; margin:auto;}
-    h2 {color:#2c5f2d; margin-top:0;}
+    .menu.open {
+        display: flex;
+    }
 
-    /* CARDS (modern layout) */
-    .grid {display:grid; grid-template-columns:1fr; gap:16px;}
-    .card {background:#f9f9f9; padding:16px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05);}    
+    .menu a {
+        display: block;
+        padding: 15px 0;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+    }
 
-    footer {background:#333; color:white; text-align:center; padding:20px;}
+    /* OBSAH STRÁNKY */
+    section {padding:40px 15px; max-width:1000px; margin:auto;}
+    h2 {color:#2c5f2d; margin-top:0; border-bottom: 2px solid #2c5f2d; display: inline-block; padding-bottom: 5px;}
+
+    /* CARDS */
+    .grid {display:grid; grid-template-columns:1fr; gap:16px; margin-top: 20px;}
+    .card {background:#f9f9f9; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05); border-left: 4px solid #2c5f2d;}    
+
+    footer {background:#333; color:white; text-align:center; padding:30px; margin-top: 50px;}
 
     /* SLIDER */
-    .slider {position:relative; max-width:100%; overflow:hidden;}
+    .slider {position:relative; max-width:100%; overflow:hidden; background: #000;}
     .slides {display:flex; transition: transform 0.5s ease-in-out;}
-    .slides img {width:100%; height:50vh; min-height:220px; max-height:400px; object-fit:cover; flex:0 0 100%;}
+    .slides img {width:100%; height:50vh; min-height:250px; max-height:450px; object-fit:cover; flex:0 0 100%; opacity: 0.9;}
 
-    .prev, .next {position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:8px; cursor:pointer; font-size:18px;}
+    .prev, .next {position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:12px; cursor:pointer; font-size:20px; border-radius: 50%; margin: 0 10px;}
     .prev {left:5px;} .next {right:5px;}
 
     /* FADE-IN ANIMATION */
-    .fade {opacity:0; transform: translateY(20px); transition: all 0.6s ease;}
+    .fade {opacity:0; transform: translateY(20px); transition: all 0.6s ease-out;}
     .fade.show {opacity:1; transform: translateY(0);}
 
-    /* TABLET */
-    @media (min-width: 600px) {
-      header h1 {font-size:32px;}
-      .menu {display:flex; gap:15px; width:auto;}
-      .menu a {padding:0;}
-      .hamburger {display:none;}
-      .slides img {height:60vh;}
-      .grid {grid-template-columns:1fr 1fr;}
-    }
-
-    /* DESKTOP */
-    @media (min-width: 900px) {
-      header {padding:40px 20px;}
+    /* TABLET + DESKTOP (nad 768px) */
+    @media (min-width: 768px) {
       header h1 {font-size:40px;}
-      section {padding:40px 20px;}
-      .slides img {height:70vh; max-height:500px;}
-      .grid {grid-template-columns:1fr 1fr 1fr;}
+      .hamburger {display:none;}
+      
+      nav { justify-content: center; padding: 15px; }
+
+      .menu {
+          display: flex !important;
+          flex-direction: row;
+          width: auto;
+          gap: 30px;
+          margin-top: 0;
+      }
+      .menu a {
+          padding: 5px 0;
+          border-bottom: none;
+      }
+      .menu a:hover { color: #2c5f2d; }
+
+      .slides img {height:60vh;}
+      .grid {grid-template-columns: 1fr 1fr 1fr;}
     }
   </style>
 </head>
@@ -85,48 +124,48 @@
   <button class="next" onclick="moveSlide(1)">❯</button>
 </div>
 
-<!-- STICKY NAV + HAMBURGER -->
 <div class="nav-wrap">
   <nav>
-    <div class="brand">Menu</div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
     <div class="menu" id="menu">
-      <a href="#about">O autorovi</a>
-      <a href="#book">O knihe</a>
-      <a href="#reviews">Recenzie</a>
-      <a href="#order">Objednávka</a>
-      <a href="#contact">Kontakt</a>
+      <a href="#about" onclick="closeMenu()">O autorovi</a>
+      <a href="#book" onclick="closeMenu()">O knihe</a>
+      <a href="#reviews" onclick="closeMenu()">Recenzie</a>
+      <a href="#order" onclick="closeMenu()">Objednávka</a>
+      <a href="#contact" onclick="closeMenu()">Kontakt</a>
     </div>
   </nav>
 </div>
 
 <section id="about" class="fade">
   <h2>O autorovi</h2>
-  <p>Sem doplň informácie o autorovi knihy.</p>
+  <p>Sem doplň informácie o autorovi knihy. Napríklad jeho skúsenosti s ovocinárstvom v regióne Bielych Karpát.</p>
 </section>
 
 <section id="book" class="fade">
   <h2>O knihe</h2>
-  <p>Kniha Pomológia Bielych Karpát I. sa venuje tradičným odrodám hrušiek.</p>
+  <p>Kniha Pomológia Bielych Karpát I. sa detailne venuje tradičným a krajovým odrodám hrušiek, ktoré formovali našu kultúrnu krajinu.</p>
 </section>
 
 <section id="reviews" class="fade">
   <h2>Recenzie</h2>
   <div class="grid">
-    <div class="card">„Výborná publikácia pre každého milovníka ovocia.“<br><strong>- Meno</strong></div>
-    <div class="card">„Unikátne spracovanie tradičných odrôd.“<br><strong>- Meno</strong></div>
-    <div class="card">„Veľmi hodnotná kniha.“<br><strong>- Meno</strong></div>
+    <div class="card">„Výborná publikácia pre každého milovníka ovocia.“<br><strong>- Jozef M.</strong></div>
+    <div class="card">„Unikátne spracovanie tradičných odrôd, ktoré inde nenájdete.“<br><strong>- Anna K.</strong></div>
+    <div class="card">„Veľmi hodnotná kniha s krásnymi fotografiami.“<br><strong>- Peter S.</strong></div>
   </div>
 </section>
 
 <section id="order" class="fade">
   <h2>Objednávka</h2>
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?embedded=true" width="100%" height="600" frameborder="0">Načítava sa…</iframe>
+  <p>Pre objednanie knihy vyplňte formulár nižšie:</p>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?embedded=true" width="100%" height="700" frameborder="0" style="border:none;">Načítava sa…</iframe>
 </section>
 
 <section id="contact" class="fade">
   <h2>Kontakt</h2>
-  <p>Email: tvoj@email.sk</p>
+  <p>V prípade otázok ma neváhajte kontaktovať:</p>
+  <p><strong>Email:</strong> tvoj@email.sk</p>
 </section>
 
 <footer>
@@ -144,25 +183,36 @@
     slides.style.transform = 'translateX(' + (-index * 100) + '%)';
   }
 
-  let autoSlide = setInterval(() => moveSlide(1), 4000);
+  let autoSlide = setInterval(() => moveSlide(1), 5000);
   const slider = document.getElementById('slider');
   slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-  slider.addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 4000));
+  slider.addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
 
-  // HAMBURGER
+  // HAMBURGER FUNKCIE
+  const menu = document.getElementById('menu');
+
   function toggleMenu() {
-    document.getElementById('menu').classList.toggle('open');
+    menu.classList.toggle('open');
+  }
+
+  function closeMenu() {
+    menu.classList.remove('open');
   }
 
   // FADE-IN ON SCROLL
   const faders = document.querySelectorAll('.fade');
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('show');
       }
     });
-  }, {threshold: 0.2});
+  }, observerOptions);
 
   faders.forEach(el => observer.observe(el));
 </script>
