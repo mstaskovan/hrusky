@@ -6,8 +6,9 @@
   <title>Pomológia Bielych Karpát I.</title>
 
   <style>
-    /* RESET + BASE (mobile-first) */
+    /* RESET + BASE */
     * {box-sizing: border-box;}
+    html { scroll-behavior: smooth; } /* Plynulé rolovanie */
     body {font-family: Arial, sans-serif; margin:0; line-height:1.6; color: #333;}
     img {max-width:100%; display:block;}
 
@@ -22,10 +23,9 @@
         display: flex;
         flex-wrap: wrap; 
         align-items: center;
-        justify-content: flex-end; /* Tlačí hamburger doprava */
+        justify-content: flex-end;
     }
 
-    /* HAMBURGER TLAČIDLO */
     .hamburger {
         display: block;
         cursor: pointer;
@@ -33,22 +33,15 @@
         background: none;
         font-size: 30px;
         color: #2c5f2d;
-        line-height: 1;
-        padding: 5px;
     }
 
-    /* MENU MOBIL */
     .menu {
         display: none;
         width: 100%; 
         flex-direction: column;
-        gap: 0;
-        margin-top: 10px;
     }
 
-    .menu.open {
-        display: flex;
-    }
+    .menu.open { display: flex; }
 
     .menu a {
         display: block;
@@ -59,8 +52,14 @@
         border-bottom: 1px solid #ddd;
     }
 
-    /* OBSAH STRÁNKY */
-    section {padding:40px 15px; max-width:1000px; margin:auto;}
+    /* OBSAH - OPRAVA KOTIEV */
+    section {
+        padding:40px 15px; 
+        max-width:1000px; 
+        margin:auto;
+        scroll-margin-top: 80px; /* Odsadenie kvôli sticky menu */
+    }
+
     h2 {color:#2c5f2d; margin-top:0; border-bottom: 2px solid #2c5f2d; display: inline-block; padding-bottom: 5px;}
 
     /* CARDS */
@@ -74,39 +73,24 @@
     .slides {display:flex; transition: transform 0.5s ease-in-out;}
     .slides img {width:100%; height:50vh; min-height:250px; max-height:450px; object-fit:cover; flex:0 0 100%; opacity: 0.9;}
 
-    .prev, .next {position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:12px; cursor:pointer; font-size:20px; border-radius: 50%; margin: 0 10px;}
+    .prev, .next {position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:12px; cursor:pointer; font-size:20px; border-radius: 50%;}
     .prev {left:5px;} .next {right:5px;}
 
-    /* FADE-IN ANIMATION */
+    /* FADE-IN */
     .fade {opacity:0; transform: translateY(20px); transition: all 0.6s ease-out;}
     .fade.show {opacity:1; transform: translateY(0);}
 
-    /* TABLET + DESKTOP (nad 768px) */
+    /* DESKTOP */
     @media (min-width: 768px) {
       header h1 {font-size:40px;}
       .hamburger {display:none;}
-      
-      nav { justify-content: center; padding: 15px; }
-
-      .menu {
-          display: flex !important;
-          flex-direction: row;
-          width: auto;
-          gap: 30px;
-          margin-top: 0;
-      }
-      .menu a {
-          padding: 5px 0;
-          border-bottom: none;
-      }
-      .menu a:hover { color: #2c5f2d; }
-
-      .slides img {height:60vh;}
+      nav { justify-content: center; }
+      .menu { display: flex !important; flex-direction: row; width: auto; gap: 30px; }
+      .menu a { border-bottom: none; }
       .grid {grid-template-columns: 1fr 1fr 1fr;}
     }
   </style>
 </head>
-
 <body>
 
 <header>
@@ -114,7 +98,7 @@
   <p>Prvá kniha venovaná hruškám</p>
 </header>
 
-<div class="slider" id="slider">
+<div class="slider">
   <div class="slides" id="slides">
     <img src="img/img001.jpg" alt="Hruška 1">
     <img src="img/img002.jpg" alt="Hruška 2">
@@ -126,7 +110,7 @@
 
 <div class="nav-wrap">
   <nav>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
     <div class="menu" id="menu">
       <a href="#about" onclick="closeMenu()">O autorovi</a>
       <a href="#book" onclick="closeMenu()">O knihe</a>
@@ -139,33 +123,31 @@
 
 <section id="about" class="fade">
   <h2>O autorovi</h2>
-  <p>Sem doplň informácie o autorovi knihy. Napríklad jeho skúsenosti s ovocinárstvom v regióne Bielych Karpát.</p>
+  <p>Informácie o autorovi...</p>
 </section>
 
 <section id="book" class="fade">
   <h2>O knihe</h2>
-  <p>Kniha Pomológia Bielych Karpát I. sa detailne venuje tradičným a krajovým odrodám hrušiek, ktoré formovali našu kultúrnu krajinu.</p>
+  <p>Kniha o tradičných hruškách...</p>
 </section>
 
 <section id="reviews" class="fade">
   <h2>Recenzie</h2>
   <div class="grid">
-    <div class="card">„Výborná publikácia pre každého milovníka ovocia.“<br><strong>- Jozef M.</strong></div>
-    <div class="card">„Unikátne spracovanie tradičných odrôd, ktoré inde nenájdete.“<br><strong>- Anna K.</strong></div>
-    <div class="card">„Veľmi hodnotná kniha s krásnymi fotografiami.“<br><strong>- Peter S.</strong></div>
+    <div class="card">„Výborná publikácia.“<br><strong>- Jozef M.</strong></div>
+    <div class="card">„Unikátne spracovanie.“<br><strong>- Anna K.</strong></div>
+    <div class="card">„Hodnotná kniha.“<br><strong>- Peter S.</strong></div>
   </div>
 </section>
 
 <section id="order" class="fade">
   <h2>Objednávka</h2>
-  <p>Pre objednanie knihy vyplňte formulár nižšie:</p>
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?embedded=true" width="100%" height="700" frameborder="0" style="border:none;">Načítava sa…</iframe>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc9k7WQzh0_6iB3zHhLRXMhMLgiCJR_pu6mHAqCX9ErAmxL0g/viewform?embedded=true" width="100%" height="700" frameborder="0">Načítava sa…</iframe>
 </section>
 
 <section id="contact" class="fade">
   <h2>Kontakt</h2>
-  <p>V prípade otázok ma neváhajte kontaktovať:</p>
-  <p><strong>Email:</strong> tvoj@email.sk</p>
+  <p>Email: tvoj@email.sk</p>
 </section>
 
 <footer>
@@ -173,7 +155,6 @@
 </footer>
 
 <script>
-  // SLIDER
   let index = 0;
   const slides = document.getElementById('slides');
   const total = slides.children.length;
@@ -183,38 +164,18 @@
     slides.style.transform = 'translateX(' + (-index * 100) + '%)';
   }
 
-  let autoSlide = setInterval(() => moveSlide(1), 5000);
-  const slider = document.getElementById('slider');
-  slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-  slider.addEventListener('mouseleave', () => autoSlide = setInterval(() => moveSlide(1), 5000));
+  setInterval(() => moveSlide(1), 5000);
 
-  // HAMBURGER FUNKCIE
-  const menu = document.getElementById('menu');
-
-  function toggleMenu() {
-    menu.classList.toggle('open');
-  }
-
-  function closeMenu() {
-    menu.classList.remove('open');
-  }
-
-  // FADE-IN ON SCROLL
-  const faders = document.querySelectorAll('.fade');
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  };
+  function toggleMenu() { document.getElementById('menu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('menu').classList.remove('open'); }
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('show');
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
-  faders.forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 </script>
 
 </body>
